@@ -77,7 +77,11 @@ export default function App() {
                             1,
                             location.length
                         )}`}</h1> */}
-                        <h1>{location}</h1>
+                        <h1>
+                            {location &&
+                                location[0].toUpperCase() +
+                                    location.slice(1, location.length)}
+                        </h1>
                     </div>
                     {weather && (
                         <>
