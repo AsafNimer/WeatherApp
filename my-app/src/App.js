@@ -1,25 +1,26 @@
-// import axios from "axios";
 import { useState } from "react";
 import "./App.css";
 
 export default function App() {
     const [location, setLocation] = useState("");
-    // const [locationInput, setLocationInput] = useState("");
     const [weather, setWeather] = useState({});
 
     const locationByCityUrl = `http://api.openweathermap.org/geo/1.0/direct?&q=${location}&limit=5&appid=038237954f4ea3f117ee36d1bb6c16e1`;
-    // const weatherFaranheitUrl = `https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=038237954f4ea3f117ee36d1bb6c16e1`;
-    // const pollutionUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${long}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
-    // const triggersUrl = `http://api.openweathermap.org/data/3.0/triggers`;
-    //I ADDED UNITS=METRIC IN THE URL
+
+    function pollutionUrl(lat, lon) {
+        return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+    }
 
     function weatherCelciusUrl(lat, lon) {
         return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=038237954f4ea3f117ee36d1bb6c16e1`;
     }
-    console.log(
-        "weatherCelciusUrl URL: ",
-        weatherCelciusUrl(52.5170365, 13.3888599)
-    );
+
+    function weatherFaranheitUrl(lat, lon) {
+        return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+    }
+
+    console.log("weatherFaranheitUrl: ", weatherFaranheitUrl(52.52, 13.4));
+    console.log("pollutionUrl: ", pollutionUrl(52.52, 13.4));
 
     const searchLocation = (e) => {
         if (e.key === "Enter") {
