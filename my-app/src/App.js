@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
-    const [location, setLocation] = useState("");
-    const [weather, setWeather] = useState({});
+    const [location, setLocation] = useState("Berlin");
+    const [input, setInput] = useState("");
+    const [weather, setWeather] = useState(null);
 
     const locationByCityUrl = `http://api.openweathermap.org/geo/1.0/direct?&q=${location}&limit=5&appid=038237954f4ea3f117ee36d1bb6c16e1`;
 
@@ -23,6 +24,7 @@ export default function App() {
     console.log("pollutionUrl: ", pollutionUrl(52.52, 13.4));
 
     const searchLocation = (e) => {
+        // console.log("e.key", e.key, "value", e.target.value);
         if (e.key === "Enter") {
             fetch(locationByCityUrl)
                 .then((res) => res.json())
@@ -34,7 +36,7 @@ export default function App() {
                         data[0].lat,
                         data[0].lon
                     );
-                    setLocation(location);
+                    setLocation(input);
 
                     fetch(nestedFetchUrl)
                         .then((res) => res.json())
@@ -59,12 +61,11 @@ export default function App() {
 
     return (
         <div className="app">
+            <h1 className="page_title">getWeather.</h1>
             <div className="search">
                 <input
-                    value={location}
-                    // value={locationInput}
-                    // onChange={(e) => setLocationInput(e.target.value)}
-                    onChange={(e) => setLocation(e.target.value)}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                     onKeyPress={searchLocation}
                     placeholder="Enter Location"
                 />
@@ -78,60 +79,72 @@ export default function App() {
                         )}`}</h1> */}
                         <h1>{location}</h1>
                     </div>
-                    <div className="temp">
-                        <h1>
-                            {weather.main
-                                ? Math.round(weather.main.temp)
-                                : null}
-                            C°
-                        </h1>
-                        <h3>
-                            Max:{" "}
-                            {weather.main
-                                ? Math.round(weather.main.temp_max)
-                                : null}
-                            C°
-                        </h3>
-                        <h3>
-                            Min:{" "}
-                            {weather.main
-                                ? Math.round(weather.main.temp_min)
-                                : null}
-                            C°{" "}
-                        </h3>
-                    </div>
-                    <div className="description">
-                        <p>{weather.weather[0].description}</p>
-                    </div>
+                    {weather && (
+                        <>
+                            <div className="temp">
+                                <h1>
+                                    {weather.main
+                                        ? Math.round(weather.main.temp)
+                                        : null}
+                                    C°
+                                </h1>
+                                <h3>
+                                    Max:{" "}
+                                    {weather.main
+                                        ? Math.round(weather.main.temp_max)
+                                        : null}
+                                    C°
+                                </h3>
+                                <h3>
+                                    Min:{" "}
+                                    {weather.main
+                                        ? Math.round(weather.main.temp_min)
+                                        : null}
+                                    C°{" "}
+                                </h3>
+                            </div>
+                            <div className="description">
+                                <p>{weather.weather[0].description}</p>
+                            </div>
+                        </>
+                    )}
                 </div>
-                <div className="bottom">
-                    <div className="feels">
-                        <p className="bald">
-                            {" "}
-                            {weather.main
-                                ? Math.round(weather.main.feels_like)
-                                : null}
-                            C°
-                        </p>
-                        <p>Feels like</p>
-                    </div>
-                    <div className="humidity">
-                        <p className="bald">
-                            {" "}
-                            {weather.main ? weather.main.humidity : null}%
-                        </p>
-                        <p>Humidity</p>
-                    </div>
-                    <div className="wind">
-                        <p className="wind">
-                            {weather.wind
-                                ? Math.round(weather.wind.speed)
-                                : null}{" "}
-                            m/sec<br></br>
-                            Wind speed
-                        </p>
-                    </div>
-                </div>
+
+                {weather && (
+                    <>
+                        <div className="bottom">
+                            <div className="feels">
+                                <p className="bald">
+                                    {" "}
+                                    {weather.main
+                                        ? Math.round(weather.main.feels_like)
+                                        : null}
+                                    C°
+                                </p>
+                                <p>Feels like</p>
+                            </div>
+                            <div className="humidity">
+                                <p className="bald">
+                                    {" "}
+                                    {weather.main
+                                        ? weather.main.humidity
+                                        : null}
+                                    %
+                                </p>
+                                <p>Humidity</p>
+                            </div>
+                            <div className="wind">
+                                <p className="wind">
+                                    {weather.wind
+                                        ? Math.round(weather.wind.speed)
+                                        : null}{" "}
+                                    m/sec<br></br>
+                                    Wind speed
+                                </p>
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
