@@ -8,22 +8,38 @@
 
 body {
     font-family: "Outfit", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 p {
     font-size: 1.6rem;
 }
 
+h3 {
+    font-size: 1.6rem;
+}
+
 h1 {
     font-size: 6rem;
 }
-
+/* -------------------------------
+       welcome
+-------------------------------*/
+/* .welcome .page_title {
+    position: relative;
+    grid-column: 3/4;
+    grid-row: 2/3;
+    place-self: center;
+    right: 200px;
+    color: black;
+    font-size: 150px;
+} */
+/* -------------------------------
+       app
+-------------------------------*/
 .app {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 250px 1fr 200px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 1fr 1fr 50px;
     width: 100%;
     height: 100vh;
     position: relative;
@@ -38,17 +54,28 @@ h1 {
     z-index: -1;
 }
 
-.app .page_title {
-    position: relative;
-    grid-column: 3/4;
-    grid-row: 2/3;
-    place-self: center;
-    right: 200px;
-    color: black;
-    font-size: 150px;
+.app .search {
+    grid-row: 1/2;
+    text-align: center;
+    padding: 1rem;
 }
 
-.container {
+.app .search input {
+    position: relative;
+    width: 500px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 25px;
+    border: 1px solid rgba(6, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    top: 50px;
+}
+
+::placeholder {
+    color: white;
+}
+
+/* .container {
     grid-column-start: 1;
     grid-column-end: 3;
     grid-row-start: 2;
@@ -62,23 +89,75 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
+} */
+/* -------------------------------
+       top
+-------------------------------*/
 .app .top {
-    position: relative;
     width: 100%;
     margin: 1rem auto;
-    top: -100px;
-    left: -150px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    max-width: 700px;
+    height: 700px;
+    margin: auto;
+    padding: 0 1rem;
+    position: relative;
+    top: 10%;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 1fr;
 }
 
-.app .container .description {
+.app .top .location {
+    position: relative;
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+.app .top .temp {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    padding: 30px;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.app .top .temp h1 {
     position: relative;
 }
 
-.app .container .bottom {
+.app .top .temp h3 {
     position: relative;
-    left: -200px;
+}
+
+.app .top .description {
+    position: relative;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    top: 45px;
+    right: 35px;
+}
+
+.app .top .description p {
+    position: relative;
+}
+
+.app .top .description img {
+    position: relative;
+}
+
+/* -------------------------------
+       weather_values 
+-------------------------------*/
+.app .weather_values {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    position: relative;
     display: flex;
     justify-content: space-evenly;
     text-align: center;
@@ -89,26 +168,117 @@ h1 {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.wind {
+.app .weather_values .wind {
+    position: relative;
+}
+
+.app .weather_values .wind p {
     font-size: 1.6rem;
 }
 
-.app .search {
-    text-align: center;
-    padding: 1rem;
-}
-
-.app input {
+.app .weather_values .feels {
     position: relative;
-    width: 500px;
-    padding: 0.7rem 1.5rem;
-    font-size: 1.2rem;
-    border-radius: 25px;
-    border: 1px solid rgba(6, 0, 0, 0.8);
-    background: rgba(255, 255, 255, 0.1);
-    top: 50px;
 }
 
-::placeholder {
-    color: white;
+.app .weather_values .feels p {
+    position: relative;
+}
+
+.app .weather_values .feels span {
+    position: relative;
+    margin-left: 25px;
+}
+
+.app .weather_values .humidity {
+    position: relative;
+}
+
+.app .weather_values .humidity p {
+    position: relative;
+}
+
+.app .weather_values .wind {
+    position: relative;
+}
+
+.app .weather_values .wind p {
+    position: relative;
+}
+/* -------------------------------
+       pollution
+-------------------------------*/
+.app .pollution {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: space-evenly;
+    /* text-align: center; */
+    width: 600px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.app .pollution .air_components {
+    position: relative;
+}
+
+.app .pollution .air_components p {
+    position: relative;
+}
+
+/* 
+.app .pollution .air_components span {
+    position: relative;
+} */
+/* 
+.app .pollution .air_components .keys {
+    display: inline-block;
+}
+
+.app .pollution .air_components .values {
+    display: inline-block;
+} */
+
+.app .pollution .air_components h2 {
+    position: relative;
+    font-size: 2rem;
+}
+
+.app .pollution .air_components span {
+    font-size: 1.6rem;
+    justify-self: flex-start;
+}
+
+.app .pollution .air_components .micro {
+    font-size: 15px;
+}
+
+.app .pollution .air_components .substances {
+    position: relative;
+    font-size: 1.6rem;
+    margin-right: 25px;
+}
+
+.app .pollution .air_components .values {
+    position: relative;
+}
+
+.app .pollution .air_components #quality_index1 {
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: rgb(8, 174, 8);
+}
+
+.app .pollution .air_components #quality_index2 {
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: yellow;
+}
+
+.app .pollution .air_components #quality_index3 {
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: tomato;
 }
