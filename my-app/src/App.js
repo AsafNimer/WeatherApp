@@ -49,6 +49,7 @@ export default function App() {
                         });
 
                     const pollutionApi = pollutionUrl(data[0].lat, data[0].lon);
+
                     fetch(pollutionApi)
                         .then((res) => res.json())
                         .then((data) => {
@@ -89,10 +90,12 @@ export default function App() {
                 </div>
                 <div className="description">
                     {weather && <p>{weather.weather[0].description}</p>}
-                    <img
-                        src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-                        alt={weather.weather[0].description}
-                    />
+                    {weather && (
+                        <img
+                            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                            alt={weather.weather[0].description}
+                        />
+                    )}
                 </div>
                 {weather && (
                     <>
