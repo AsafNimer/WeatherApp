@@ -30,6 +30,7 @@ export default function Weather(props) {
     const searchLocation = (e) => {
         if (e.key === "Enter") {
             setLocation(input);
+            props.setLocation(input);
             fetch(locationByCityUrl(input))
                 .then((res) => res.json())
                 .then((dataByCity) => {
@@ -38,9 +39,9 @@ export default function Weather(props) {
                         dataByCity[0].lon
                     );
 
-                    console.log("dataByCity ", dataByCity);
-                    console.log("dataByCity.lon: ", dataByCity[0].lon);
-                    console.log("dataByCity.lat: ", dataByCity[0].lat);
+                    // console.log("dataByCity ", dataByCity);
+                    // console.log("dataByCity.lon: ", dataByCity[0].lon);
+                    // console.log("dataByCity.lat: ", dataByCity[0].lat);
 
                     fetch(celcius)
                         .then((res) => res.json())

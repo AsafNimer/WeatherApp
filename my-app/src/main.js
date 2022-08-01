@@ -2,25 +2,26 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Weather from "./weather";
 import ScrollButton from "./components/scrollButton";
-import React, { Component } from "react";
 import FiveDays from "./FiveDays";
+import React, { useState } from "react";
 
-export default class main extends Component {
-    render() {
-        return (
-            <BrowserRouter>
-                <div className="main">
-                    <div className="welcome_page">
-                        <h1 className="home_title">getWeather.</h1>
-                        <ScrollButton
-                            classi="scroll_button"
-                            scrollToId="earth_weather"
-                        />
-                    </div>
+export default function Main() {
+    const [location, setLocation] = useState(null);
+    const [weatherDays, setWeatherDays] = useState("");
+
+    return (
+        <BrowserRouter>
+            <div className="main">
+                <div className="welcome_page">
+                    <h1 className="home_title">getWeather.</h1>
+                    <ScrollButton
+                        classi="scroll_button"
+                        scrollToId="earth_weather"
+                    />
                 </div>
-                <Weather />
-                <FiveDays />
-            </BrowserRouter>
-        );
-    }
+            </div>
+            <Weather setLocation={setLocation} />
+            <FiveDays location={location} />
+        </BrowserRouter>
+    );
 }
