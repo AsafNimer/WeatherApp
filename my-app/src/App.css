@@ -55,11 +55,17 @@ h1 {
     width: 100%;
 }
 
-.app .background {
-    z-index: -1;
-    grid-column: 2/3;
+.app .background_wrapper {
+    position: relative;
+    grid-column: 1/2;
     grid-row: 1/5;
-    background-color: orange;
+    background-color: rgb(175, 235, 244);
+}
+
+.app .background {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .app .search {
@@ -82,22 +88,6 @@ h1 {
 ::placeholder {
     color: white;
 }
-
-/* .container {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    max-width: 700px;
-    height: 700px;
-    margin: auto;
-    padding: 0 1rem;
-    position: relative;
-    top: 10%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-} */
 /* -------------------------------
        top
 -------------------------------*/
@@ -113,7 +103,6 @@ h1 {
     position: relative;
     top: 10%;
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-between;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -285,7 +274,7 @@ h1 {
 .app .pollution .air_components #quality_index2 {
     font-weight: bold;
     font-size: 3.5rem;
-    color: yellow;
+    color: orange;
 }
 
 .app .pollution .air_components #quality_index3 {

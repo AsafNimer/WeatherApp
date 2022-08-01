@@ -109,69 +109,70 @@ export default function Weather(props) {
 
     return (
         <div className="app">
-            <div className="background"></div>
-            <div id="earth_weather" className="search">
-                <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={searchLocation}
-                    autoFocus={true}
-                    placeholder="Enter Location"
-                />
-            </div>
-            <section className="top">
-                {location && (
-                    <Switch
-                        isToggled={isToggled}
-                        onToggle={() => setIsToggled(!isToggled)}
-                        onChange={() => handleUnits()}
+            <div className="background_wrapper">
+                <div id="earth_weather" className="search">
+                    <input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={searchLocation}
+                        autoFocus={true}
+                        placeholder="Enter Location"
                     />
-                )}
-
-                <div className="location">
-                    <h1>
-                        {location &&
-                            location[0].toUpperCase() +
-                                location.slice(1, location.length)}
-                    </h1>
                 </div>
-                <div className="description">
-                    {weather && <p>{weather.weather[0].description}</p>}
-                    {weather && (
-                        <img
-                            src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
-                            alt={weather.weather[0].description}
+                <section className="top">
+                    {location && (
+                        <Switch
+                            isToggled={isToggled}
+                            onToggle={() => setIsToggled(!isToggled)}
+                            onChange={() => handleUnits()}
                         />
                     )}
-                </div>
-                {weather && (
-                    <>
-                        <div className="temp">
-                            <h1>
-                                {weather.main
-                                    ? Math.round(weather.main.temp)
-                                    : null}
-                                °c
-                            </h1>
 
-                            <h3>
-                                ▲ Max:
-                                {weather.main
-                                    ? Math.round(weather.main.temp_max)
-                                    : null}
-                                °c
-                            </h3>
-                            <h3>
-                                ▼ Min:{" "}
-                                {weather.main
-                                    ? Math.round(weather.main.temp_min)
-                                    : null}
-                                °c
-                            </h3>
-                        </div>
-                    </>
-                )}
-            </section>
+                    <div className="location">
+                        <h1>
+                            {location &&
+                                location[0].toUpperCase() +
+                                    location.slice(1, location.length)}
+                        </h1>
+                    </div>
+                    <div className="description">
+                        {weather && <p>{weather.weather[0].description}</p>}
+                        {weather && (
+                            <img
+                                src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                                alt={weather.weather[0].description}
+                            />
+                        )}
+                    </div>
+                    {weather && (
+                        <>
+                            <div className="temp">
+                                <h1>
+                                    {weather.main
+                                        ? Math.round(weather.main.temp)
+                                        : null}
+                                    °c
+                                </h1>
+
+                                <h3>
+                                    ▲ Max:
+                                    {weather.main
+                                        ? Math.round(weather.main.temp_max)
+                                        : null}
+                                    °c
+                                </h3>
+                                <h3>
+                                    ▼ Min:{" "}
+                                    {weather.main
+                                        ? Math.round(weather.main.temp_min)
+                                        : null}
+                                    °c
+                                </h3>
+                            </div>
+                        </>
+                    )}
+                </section>
+            </div>
             {weather && (
                 <>
                     <section className="weather_values">
