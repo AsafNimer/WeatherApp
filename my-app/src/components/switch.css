@@ -4,14 +4,14 @@
 
 .switch_div .span_c {
     position: relative;
-    margin: 10px;
+    margin-right: 10px;
     font-size: 18px;
     top: 5px;
 }
 
 .switch_div .span_f {
     position: relative;
-    margin: 10px;
+    margin-left: 20px;
     top: 5px;
     font-size: 18px;
 }
@@ -54,7 +54,7 @@
 }
 
 input:checked + .slider {
-    background-color: #2196f3;
+    background-color: #f3e921;
 }
 
 input:checked + .slider::before {

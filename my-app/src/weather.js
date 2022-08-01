@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./App.css";
+import "./FiveDays.css";
 import Switch from "./components/switch";
+import ScrollButton from "./components/scrollButton";
 
 export default function Weather(props) {
     const [location, setLocation] = useState(null);
@@ -340,6 +342,7 @@ export default function Weather(props) {
                     </section>
                 </>
             )}
+            <ScrollButton classi="scroll_button" scrollToId="FiveDays" />
         </div>
     );
 }

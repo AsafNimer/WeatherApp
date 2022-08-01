@@ -55,6 +55,13 @@ h1 {
     width: 100%;
 }
 
+.app .scroll_button {
+    position: relative;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    left: 750px;
+}
+
 .app .background_wrapper {
     position: relative;
     grid-column: 1/2;

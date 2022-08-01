@@ -7,5 +7,11 @@ export default function ScrollButton(props) {
             .getElementById(props.scrollToId)
             .scrollIntoView({ behavior: "smooth" });
     };
-    return <div className={props.classi} onClick={() => scrollTo(props)}></div>;
+    return (
+        <div
+            id="scrollto_waiting"
+            className={props.classi}
+            onClick={() => scrollTo(props)}
+        ></div>
+    );
 }

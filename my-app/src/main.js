@@ -1,9 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
-import { HashLink as Link } from "react-router-hash-link";
 import "./App.css";
 import Weather from "./weather";
 import ScrollButton from "./components/scrollButton";
 import React, { Component } from "react";
+import FiveDays from "./FiveDays";
 
 export default class main extends Component {
     render() {
@@ -19,6 +19,7 @@ export default class main extends Component {
                     </div>
                 </div>
                 <Weather />
+                <FiveDays />
             </BrowserRouter>
         );
     }
