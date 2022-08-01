@@ -91,6 +91,12 @@ h1 {
 /* -------------------------------
        top
 -------------------------------*/
+.app .enter_location {
+    place-self: center;
+    grid-row: 2/4;
+    grid-column: 1/3;
+    z-index: 1;
+}
 .app .top {
     width: 100%;
     margin: 1rem auto;
@@ -160,7 +166,7 @@ h1 {
        weather_values 
 -------------------------------*/
 .app .weather_values {
-    grid-column: 2/3;
+    grid-column: 1/2;
     grid-row: 3/4;
     position: relative;
     display: flex;
@@ -185,13 +191,8 @@ h1 {
     position: relative;
 }
 
-.app .weather_values .feels p {
+.app .weather_values .feels .feels_like_p {
     position: relative;
-}
-
-.app .weather_values .feels span {
-    position: relative;
-    margin-left: 25px;
 }
 
 .app .weather_values .humidity {

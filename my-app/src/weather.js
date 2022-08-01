@@ -36,7 +36,7 @@ export default function Weather(props) {
                         dataByCity[0].lon
                     );
 
-                    console.log("dataByCity ", dataByCity); // why my console log shows me berlin when i enter haifa???
+                    console.log("dataByCity ", dataByCity);
                     console.log("dataByCity.lon: ", dataByCity[0].lon);
                     console.log("dataByCity.lat: ", dataByCity[0].lat);
 
@@ -72,7 +72,6 @@ export default function Weather(props) {
                 .catch((err) => {
                     console.log("error by fetching location by city", err);
                 });
-
             setInput("");
         }
     };
@@ -109,6 +108,9 @@ export default function Weather(props) {
 
     return (
         <div className="app">
+            {location === null && (
+                <h1 className="enter_location">Enter location...</h1>
+            )}
             <div className="background_wrapper">
                 <div id="earth_weather" className="search">
                     <input
@@ -177,7 +179,7 @@ export default function Weather(props) {
                 <>
                     <section className="weather_values">
                         <div className="feels">
-                            <p className="bald">
+                            <p className="feels_like_p">
                                 {" "}
                                 {weather.main
                                     ? Math.round(weather.main.feels_like)
