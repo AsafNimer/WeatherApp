@@ -1,13 +1,17 @@
 import { useState } from "react";
 import "./App.css";
+import Switch from "./components/switch";
 
-export default function App() {
+export default function Weather(props) {
     const [location, setLocation] = useState(null);
     const [input, setInput] = useState("");
     const [weather, setWeather] = useState(null);
     const [pollution, setPollution] = useState("");
+    const [isToggled, setIsToggled] = useState(false);
 
-    const locationByCityUrl = `http://api.openweathermap.org/geo/1.0/direct?&q=${location}&limit=5&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+    function locationByCityUrl(location) {
+        return `http://api.openweathermap.org/geo/1.0/direct?&q=${location}&limit=5&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+    }
 
     function pollutionUrl(lat, lon) {
         return `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
@@ -18,28 +22,30 @@ export default function App() {
     }
 
     function weatherFaranheitUrl(lat, lon) {
-        return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+        return `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}units=imperial&appid=038237954f4ea3f117ee36d1bb6c16e1`;
     }
-
-    console.log("weatherFaranheitUrl: ", weatherFaranheitUrl(52.52, 13.4));
 
     const searchLocation = (e) => {
         if (e.key === "Enter") {
-            fetch(locationByCityUrl)
+            setLocation(input);
+            fetch(locationByCityUrl(input))
                 .then((res) => res.json())
-                .then((data) => {
-                    const celcius = weatherCelciusUrl(data[0].lat, data[0].lon);
-                    setLocation(input);
-                    console.log("data ", data); // why my console log shows me berlin when i enter haifa???
-                    console.log("data.lon: ", data[0].lon);
-                    console.log("data.lat: ", data[0].lat);
+                .then((dataByCity) => {
+                    const celcius = weatherCelciusUrl(
+                        dataByCity[0].lat,
+                        dataByCity[0].lon
+                    );
+
+                    console.log("dataByCity ", dataByCity); // why my console log shows me berlin when i enter haifa???
+                    console.log("dataByCity.lon: ", dataByCity[0].lon);
+                    console.log("dataByCity.lat: ", dataByCity[0].lat);
 
                     fetch(celcius)
                         .then((res) => res.json())
-                        .then((data) => {
-                            console.log("data2: ", data);
-                            console.log("weather.main:", data.main.temp);
-                            setWeather(data);
+                        .then((dataCelcius) => {
+                            console.log("dataCelcius: ", dataCelcius);
+                            console.log("weather.main:", dataCelcius.main.temp);
+                            setWeather(dataCelcius);
                         })
                         .catch((err) => {
                             console.log(
@@ -48,39 +54,80 @@ export default function App() {
                             );
                         });
 
-                    const pollutionApi = pollutionUrl(data[0].lat, data[0].lon);
+                    const pollutionApi = pollutionUrl(
+                        dataByCity[0].lat,
+                        dataByCity[0].lon
+                    );
 
                     fetch(pollutionApi)
                         .then((res) => res.json())
-                        .then((data) => {
-                            console.log("data3: ", data);
-                            setPollution(data);
+                        .then((dataPollution) => {
+                            console.log("Pollution data: ", dataPollution);
+                            setPollution(dataPollution);
                         })
                         .catch((err) => {
-                            console.log(
-                                "error by fetching location weatherCelciusUrl",
-                                err
-                            );
+                            console.log("error by fetching pollutionUrl", err);
                         });
                 })
                 .catch((err) => {
                     console.log("error by fetching location by city", err);
                 });
-            setLocation("");
+
+            setInput("");
         }
     };
 
+    function handleUnits() {
+        fetch(locationByCityUrl(location))
+            .then((res) => res.json())
+            .then((dataByCity) => {
+                const fahrenheitUrl = weatherFaranheitUrl(
+                    dataByCity[0].lat,
+                    dataByCity[0].lon
+                );
+
+                if (!isToggled) {
+                    fetch(fahrenheitUrl)
+                        .then((res) => res.json())
+                        .then((dataFahrenheit) => {
+                            console.log("dataFahrenheit: ", dataFahrenheit);
+                            console.log(
+                                "weather.main:",
+                                dataFahrenheit.main.temp
+                            );
+                            setWeather(dataFahrenheit);
+                        })
+                        .catch((err) => {
+                            console.log(
+                                "error by fetching location weatherFaranheitUrl",
+                                err
+                            );
+                        });
+                }
+            });
+    }
+
     return (
         <div className="app">
-            <div className="search">
+            <div className="background"></div>
+            <div id="earth_weather" className="search">
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={searchLocation}
+                    autoFocus={true}
                     placeholder="Enter Location"
                 />
             </div>
             <section className="top">
+                {location && (
+                    <Switch
+                        isToggled={isToggled}
+                        onToggle={() => setIsToggled(!isToggled)}
+                        onChange={() => handleUnits()}
+                    />
+                )}
+
                 <div className="location">
                     <h1>
                         {location &&
@@ -148,9 +195,9 @@ export default function App() {
                         <div className="wind">
                             <p className="wind">
                                 {weather.wind
-                                    ? Math.round(weather.wind.speed)
+                                    ? Math.round(weather.wind.speed * 1.94384)
                                     : null}{" "}
-                                m/sec<br></br>
+                                Kn<br></br>
                                 Wind speed
                             </p>
                         </div>

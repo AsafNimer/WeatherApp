@@ -1,0 +1,50 @@
+.scroll_button {
+    height: 80px;
+    width: 50px;
+    border: solid 2px black;
+    position: absolute;
+    top: 75vh;
+    left: 50%;
+    bottom: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.scroll_button::before,
+.scroll_button::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    border: 3px solid black;
+    height: 10px;
+    width: 10px;
+    transform: translate(-50%, -100%) rotate(45deg);
+    border-top: transparent;
+    border-left: transparent;
+    animation: scroll-down 1s ease-in-out infinite;
+}
+
+.scroll_button::after {
+    top: 30%;
+    animation-delay: 0.3s;
+}
+
+@keyframes scroll-down {
+    0% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: 90%;
+    }
+}
