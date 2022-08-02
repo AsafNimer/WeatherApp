@@ -48,12 +48,18 @@ export default function FiveDays(props) {
         <>
             {weatherDays && (
                 <div id="FiveDays">
-                    <h2>
-                        Next days weather in :<br></br>
+                    <div id="location">
+                        <h2>Next days weather in:</h2>
                         <br></br>
-                        {`${props.location.toUpperCase()}
-                                ${weatherDays.city.country}`}
-                    </h2>
+                        <br></br>
+                        <span id="city_span">
+                            {" "}
+                            {props.location.toUpperCase()}
+                        </span>
+                        <span id="country_span">
+                            {weatherDays.city.country}
+                        </span>
+                    </div>
 
                     <div className="future_forecast">
                         <div className="weather_forecast" id="weather_forecast">
