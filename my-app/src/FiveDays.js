@@ -9,7 +9,7 @@ export default function FiveDays(props) {
     }
 
     function fiveDaysUrl(lat, lon) {
-        return `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=038237954f4ea3f117ee36d1bb6c16e1`;
+        return `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&limit=7&appid=038237954f4ea3f117ee36d1bb6c16e1`;
     }
 
     useEffect(() => {
@@ -27,6 +27,7 @@ export default function FiveDays(props) {
                     console.log("dataByCity ", dataByCity);
                     console.log("dataByCity.lon: ", dataByCity[0].lon);
                     console.log("dataByCity.lat: ", dataByCity[0].lat);
+                    console.log("five days: ", fiveDays);
 
                     fetch(fiveDays)
                         .then((res) => res.json())
@@ -39,9 +40,138 @@ export default function FiveDays(props) {
         getFiveDaysWeather();
     }, [props.location]);
 
+    if (!weatherDays) {
+        return <div></div>;
+    }
+
     return (
-        <div id="FiveDays">
-            <div className="container_div"></div>
-        </div>
+        <>
+            {weatherDays && (
+                <div id="FiveDays">
+                    <h2>
+                        Next days weather in :<br></br>
+                        <br></br>
+                        {`${props.location.toUpperCase()}
+                                ${weatherDays.city.country}`}
+                    </h2>
+
+                    <div className="future_forecast">
+                        <div className="weather_forecast" id="weather_forecast">
+                            <div className="weather_forecast_item">
+                                <div className="day">Tue</div>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${weatherDays.list[0].weather[0].icon}@4x.png`}
+                                    alt="weather_icon"
+                                    className="w_icon"
+                                />
+                                <div className="temp">
+                                    Day -{" "}
+                                    {Math.round(
+                                        weatherDays.list[3].main.temp_max
+                                    )}{" "}
+                                    c°
+                                </div>
+                                <div className="temp">
+                                    Night -{" "}
+                                    {Math.round(
+                                        weatherDays.list[0].main.temp_min
+                                    )}{" "}
+                                    c°
+                                </div>
+                            </div>
+
+                            <div className="weather_forecast_item">
+                                <div className="day">Wed</div>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${weatherDays.list[8].weather[0].icon}@4x.png`}
+                                    alt="weather_icon"
+                                    className="w_icon"
+                                />
+                                <div className="temp">
+                                    Day -{" "}
+                                    {Math.round(
+                                        weatherDays.list[11].main.temp_max
+                                    )}{" "}
+                                    c°
+                                </div>
+                                <div className="temp">
+                                    Night -{" "}
+                                    {Math.round(
+                                        weatherDays.list[8].main.temp_min
+                                    )}{" "}
+                                    c°
+                                </div>
+                            </div>
+                            <div className="weather_forecast_item">
+                                <div className="day">Thur</div>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${weatherDays.list[15].weather[0].icon}@4x.png`}
+                                    alt="weather_icon"
+                                    className="w_icon"
+                                />
+                                <div className="temp">
+                                    Day -{" "}
+                                    {Math.round(
+                                        weatherDays.list[18].main.temp_max
+                                    )}{" "}
+                                    c°
+                                </div>
+                                <div className="temp">
+                                    Night -{" "}
+                                    {Math.round(
+                                        weatherDays.list[15].main.temp_min
+                                    )}{" "}
+                                    c°
+                                </div>
+                            </div>
+                            <div className="weather_forecast_item">
+                                <div className="day">Fri</div>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${weatherDays.list[22].weather[0].icon}@4x.png`}
+                                    alt="weather_icon"
+                                    className="w_icon"
+                                />
+                                <div className="temp">
+                                    Day -{" "}
+                                    {Math.round(
+                                        weatherDays.list[25].main.temp_max
+                                    )}{" "}
+                                    c°
+                                </div>
+                                <div className="temp">
+                                    Night -{" "}
+                                    {Math.round(
+                                        weatherDays.list[22].main.temp_min
+                                    )}{" "}
+                                    c°
+                                </div>
+                            </div>
+                            <div className="weather_forecast_item">
+                                <div className="day">Sat</div>
+                                <img
+                                    src={`http://openweathermap.org/img/wn/${weatherDays.list[29].weather[0].icon}@4x.png`}
+                                    alt="weather_icon"
+                                    className="w_icon"
+                                />
+                                <div className="temp">
+                                    Day -{" "}
+                                    {Math.round(
+                                        weatherDays.list[32].main.temp_max
+                                    )}{" "}
+                                    c°
+                                </div>
+                                <div className="temp">
+                                    Night -{" "}
+                                    {Math.round(
+                                        weatherDays.list[29].main.temp_min
+                                    )}{" "}
+                                    c°
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
